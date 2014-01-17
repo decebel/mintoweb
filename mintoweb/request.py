@@ -120,14 +120,14 @@ class Request(object):
 			raise InputError("resource path not enclosed in forward slashes: "+path)
 
 
-		path = path[1:-1] 	#trim the enclosing slashes
+		path_check = path[1:-1] 	#trim the enclosing slashes
 
-		if not path:		#if we just had a single / or // 
+		if not path_check:		#if we just had a single / or // 
 			self.set_is_valid(False)
 			raise InputError("empty resource request: "+path)
 
 		# if we have any more forward slashes in the beginning or end, then we have a bad request 
-		if path[0] == '/' or path[-1] == '/':
+		if path_check[0] == '/' or path_check[-1] == '/':
 			self.set_is_valid(False)
 			raise InputError("additional forward slashes in resource path " + path)
 

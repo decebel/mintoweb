@@ -55,13 +55,13 @@ class TestQueryValidator(unittest.TestCase):
 		# returns a resource named resource1
 		request1 = request.Request("http://app.com/marketplace/_find")
 		request1.build_request()
-		self.assertEquals(request1.get_endpoint()[0], "marketplace")
+		self.assertEquals(request1.get_endpoint(), "/marketplace/")
 		self.assertEquals(request1.get_command(), "_find")
 
 		# valid subresource request
 		request2 = request.Request("http://app.com/marketplace/channel/_command")
 		request2.build_request()
-		self.assertEquals(request2.get_endpoint()[1], "channel")
+		self.assertEquals(request2.get_endpoint(), "/marketplace/channel/")
 		self.assertEquals(request2.get_command(), "_command")
 
 

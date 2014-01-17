@@ -14,6 +14,14 @@ __version__ = "0.1"
 class ReqHandler(BaseHTTPRequestHandler):
     
     def do_GET(self):
+
+        # until we have this ready, we are skipping the fav icon request
+        # todo: delegate to a ignore list
+        if 'favicon.ico' in self.path:
+            self.send_response(404)
+            self.end_headers()
+            return
+
         parsed_path = urlparse.urlparse(self.path)
         message_parts = [
                 'CLIENT VALUES:',
@@ -93,7 +101,7 @@ class ReqHandler(BaseHTTPRequestHandler):
     # TODO; exceptions handling
     def delegator(self, req):
         end_point = req.get_endpoint()
-        handler = EndpointHandler.handler("/"+end_point+"/") #hack. just for quick testing
+        handler = EndpointHandler.handler(end_point)
         result = handler(req)
         return result
 
