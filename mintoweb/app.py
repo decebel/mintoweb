@@ -21,29 +21,28 @@ def route(path):
 	return func_wrapper
 
 
-
 def serve():
 	MintoHTTPServer.serve_forever()
 
 
 
 
-def test_endpoints():
+# def test_endpoints():
 
-	@route("/abc/ep1")
-	def handler1(req):
-		print "I am from handler1"
+# 	@route("/abc/ep1")
+# 	def handler1(req):
+# 		print "I am from handler1"
 
-	@route("/abc/ep2")
-	def handler2(req):
-		print "I am from handler2"
+# 	@route("/abc/ep2")
+# 	def handler2(req):
+# 		print "I am from handler2"
 
 
-def testcache():	
-	test_endpoints()
-	EndpointHandler.dump_cache()
-	EndpointHandler.handler("/abc/ep1")("")
-	EndpointHandler.handler("/abc/ep2")("")
+# def testcache():	
+# 	test_endpoints()
+# 	EndpointHandler.dump_cache()
+# 	EndpointHandler.handler("/abc/ep1")("")
+# 	EndpointHandler.handler("/abc/ep2")("")
 
-if __name__ == '__main__':
-	testcache()
+# if __name__ == '__main__':
+# 	testcache()

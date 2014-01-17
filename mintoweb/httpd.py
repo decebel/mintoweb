@@ -4,6 +4,9 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import urlparse
 import cgi
 
+from cache import EndpointHandler
+from request import Request, RequestError
+
 __version__ = "0.1"
 
 
@@ -33,6 +36,19 @@ class ReqHandler(BaseHTTPRequestHandler):
             message_parts.append('%s=%s' % (name, value.rstrip()))
         message_parts.append('')
         message = '\r\n'.join(message_parts)
+
+        
+        # when do we do url decoding?
+
+        r = Request(self.path)
+        try:
+            r.build_request()
+        except RequestError as err:
+            message = message + '\r\n\n' + str(err)
+            
+
+        message = message + '\r\n\r\n' + self.delegator(r)
+
         self.send_response(200)
         self.end_headers()
         self.wfile.write(message)
@@ -71,6 +87,17 @@ class ReqHandler(BaseHTTPRequestHandler):
                 # Regular form value
                 self.wfile.write('\t%s=%s\n' % (field, form[field].value))
         return
+
+
+    # separate interface for delegator (object)
+    # TODO; exceptions handling
+    def delegator(self, req):
+        end_point = req.get_endpoint()
+        handler = EndpointHandler.handler("/"+end_point+"/") #hack. just for quick testing
+        result = handler(req)
+        return result
+
+
 
 
 

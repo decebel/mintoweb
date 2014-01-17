@@ -12,6 +12,8 @@ class EndpointHandler(object):
 
 	@staticmethod
 	def handler(path):
+		print "cache: "
+		EndpointHandler.dump_cache()
 		return EndpointHandler.CACHE[path]
 
 	@staticmethod

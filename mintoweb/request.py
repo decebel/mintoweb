@@ -131,7 +131,7 @@ class Request(object):
 			self.set_is_valid(False)
 			raise InputError("additional forward slashes in resource path " + path)
 
-		self.dict[Request.ENDPOINT] = path.split('/')
+		self.dict[Request.ENDPOINT] = path  #.split('/')
 		
 		return
 
